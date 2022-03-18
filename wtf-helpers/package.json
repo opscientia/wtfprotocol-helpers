@@ -1,0 +1,19 @@
+{
+  "name": "wtfprotocol-helpers",
+  "version": "1.0.0",
+  "description": "helper functions for frontends using the WTF protocol",
+  "main": "utils.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/nanaknihal/wtfprotocol-helpers"
+  },
+  "keywords": [
+    "wtf",
+    "wtfprotocol"
+  ],
+  "author": "Nanak Nihal Khalsa",
+  "license": "ISC"
+}
