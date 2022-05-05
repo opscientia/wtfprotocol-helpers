@@ -71,7 +71,6 @@ exports.parseJWT = (JWT) => {
   let parsedToJSON = {}
   JWT.split('&').map(x=>{let [key, value] = x.split('='); parsedToJSON[key] = value});
   let [rawHead, rawPay, rawSig] = parsedToJSON['id_token'].split('.');
-  console.log(rawHead, rawPay, 'RAWR')
   let [head, pay] = [rawHead, rawPay].map(x => x ? JSON.parse(atob(x)) : null);
   let [sig] = [Buffer.from(rawSig.replaceAll('-', '+').replaceAll('_', '/'), 'base64')] //replaceAlls convert it from base64url to base64
   return {
