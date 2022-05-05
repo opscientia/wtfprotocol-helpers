@@ -60,9 +60,32 @@ exports.sandwichIDWithBreadFromContract = async function (id, contract) {
   return sandwich
 }
 
-
-
 exports.hexToString = function(hex) {
   return Buffer.from(hex.replace('0x',''), 'hex').toString()
 }
 
+// TODO: better error handling
+// takes encoded JWT and returns parsed header, parsed payload, parsed signature, raw header, raw header, raw signature
+exports.parseJWT = (JWT) => {
+  if(!JWT){return null}
+  let parsedToJSON = {}
+  JWT.split('&').map(x=>{let [key, value] = x.split('='); parsedToJSON[key] = value});
+  let [rawHead, rawPay, rawSig] = parsedToJSON['id_token'].split('.');
+  console.log(rawHead, rawPay, 'RAWR')
+  let [head, pay] = [rawHead, rawPay].map(x => x ? JSON.parse(atob(x)) : null);
+  let [sig] = [Buffer.from(rawSig.replaceAll('-', '+').replaceAll('_', '/'), 'base64')] //replaceAlls convert it from base64url to base64
+  return {
+    'header' :  {
+      'parsed' : head,
+     'raw' : rawHead,
+    }, 
+    'payload' :  {
+      'parsed' : pay,
+     'raw' : rawPay,
+    }, 
+    'signature' :  {
+      'decoded' : sig,
+     'raw' : rawSig,
+    }, 
+  }
+}
