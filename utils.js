@@ -66,11 +66,8 @@ exports.hexToString = function(hex) {
 
 // TODO: better error handling
 // takes encoded JWT and returns parsed header, parsed payload, parsed signature, raw header, raw header, raw signature
-exports.parseJWT = (JWT) => {
-  if(!JWT){return null}
-  let parsedToJSON = {}
-  JWT.split('&').map(x=>{let [key, value] = x.split('='); parsedToJSON[key] = value});
-  let [rawHead, rawPay, rawSig] = parsedToJSON['id_token'].split('.');
+exports.parseJWT = (jwt) => {
+  let [rawHead, rawPay, rawSig] = jwt.split('.');
   let [head, pay] = [rawHead, rawPay].map(x => x ? JSON.parse(atob(x)) : null);
   let [sig] = [Buffer.from(rawSig.replaceAll('-', '+').replaceAll('_', '/'), 'base64')] //replaceAlls convert it from base64url to base64
   return {
