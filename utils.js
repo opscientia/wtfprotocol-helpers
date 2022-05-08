@@ -1,6 +1,5 @@
 // Utilities for WTF protocol
 // by Nanak Nihal Khalsa
-
 var Buffer = require('safe-buffer').Buffer
 const { ethers } = require('ethers')
 
@@ -149,8 +148,8 @@ exports.getParamsForVerifying = async (vjwt, jwt, idFieldName, type='hardhat') =
       params.payloadIdx = Buffer.from(parsed.header.raw).length + 1 //Buffer.from('.').length == 1
   
       // Find ID and exp sandwiches (and make a bad one for testing purposes to make sure it fails)
-      const idSandwichValue = await sandwichDataWithBreadFromContract(params.id, vjwt, type='id');
-      const expSandwichValue = await sandwichDataWithBreadFromContract(params.expTime, vjwt, type='exp');
+      const idSandwichValue = await sandwichDataWithBreadFromContract(params.id, vjwt, 'id');
+      const expSandwichValue = await sandwichDataWithBreadFromContract(params.expTime, vjwt, 'exp');
       // aud isn't quite a sandwich but is treated similarly
       const audSandwichValue = (await vjwt.aud()).replace('0x', '');
 
@@ -199,7 +198,7 @@ exports.getParamsForVerifying = async (vjwt, jwt, idFieldName, type='hardhat') =
         sandwichValue: Buffer.from(audSandwichValue, 'hex')
       } 
 
-      // hardhat and ethers have different struct formats :(
+      // hardhat and ethers have different struct formats :(      
       if(type == 'ethersjs') {
         params.proposedIDSandwich = Object.values(params.proposedIDSandwich)
         params.proposedExpSandwich = Object.values(params.proposedExpSandwich)
