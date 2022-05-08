@@ -199,6 +199,13 @@ exports.getParamsForVerifying = async (vjwt, jwt, idFieldName, type='hardhat') =
         sandwichValue: Buffer.from(audSandwichValue, 'hex')
       } 
 
+      // hardhat and ethers have different struct formats :(
+      if(type == 'ethersjs') {
+        params.proposedIDSandwich = Object.values(params.proposedIDSandwich)
+        params.proposedExpSandwich = Object.values(params.proposedExpSandwich)
+        params.proposedAud = Object.values(params.proposedAud)
+      }
+
       // Generates a proof to be commited that the entity owning *address* knows the JWT
       // params.generateProof = async (address) => ethers.utils.sha256(
       //                                                                 await xor(Buffer.from(params.hashedMessage.replace('0x', ''), 'hex'), 
