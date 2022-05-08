@@ -17,6 +17,7 @@
   "author": "Nanak Nihal Khalsa",
   "license": "ISC",
   "dependencies": {
+    "ethers": "^5.6.5",
     "safe-buffer": "^5.2.1"
   }
 }

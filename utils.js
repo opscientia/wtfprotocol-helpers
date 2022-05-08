@@ -2,6 +2,7 @@
 // by Nanak Nihal Khalsa
 
 var Buffer = require('safe-buffer').Buffer
+const { ethers } = require('ethers')
 
 exports.fixedBufferXOR = function (a, b) {
   // pad the shorter buffer with 0s
