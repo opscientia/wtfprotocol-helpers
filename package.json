@@ -15,5 +15,8 @@
     "wtfprotocol"
   ],
   "author": "Nanak Nihal Khalsa",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "safe-buffer": "^5.2.1"
+  }
 }
